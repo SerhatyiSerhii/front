@@ -1,0 +1,43 @@
+<div class="articles" *ngIf="!displayArticle">
+    <div class="menu">
+        <select (change)="getCategory($event)">
+            <option selected>All categories</option>
+            <option *ngFor="let category of categories" #option>
+                {{ category.name }}
+            </option>
+        </select>
+    </div>
+    <div class="container">
+        <div class="article" *ngFor="let post of posts" (click)="readArticle(post)">
+            <div class="head">
+                <div class="name">
+                    {{ post.name[0].toUpperCase() + post.name.slice(1)}}
+                </div>
+                <div>
+                    Category: {{ categories[post.id - 1].name }}
+                </div>
+            </div>
+            <div class="content">
+                {{ post.message }}
+            </div>
+        </div>
+    </div>
+
+    <div class="sort">
+        <div>
+            Sort by date of creation
+        </div>
+        <div class="buttons">
+            <button (click)="ascendingSort()">Ascending date</button>
+            <button (click)="descendingSort()">Descending date</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="selected-article" *ngIf="displayArticle">
+    <div class="read-field">
+        {{ article }}
+        <button (click)="finishRead()">Done</button>
+    </div>
+</div>
